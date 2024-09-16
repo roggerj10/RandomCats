@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens Aleatórias de Gatos</title>
+    <style>
+        #cat-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Veja uma imagem de gato aleatória!</h1>
+    <button id="new-cat-btn">Novo Gato</button>
+    <img id="cat-image" src="" alt="Imagem de Gato Aleatória">
+
+    <script>
+        const catImage = document.getElementById('cat-image');
+        const newCatBtn = document.getElementById('new-cat-btn');
+
+        async function fetchCatImage() {
+            try {
+                const response = await fetch('https://api.thecatapi.com/v1/images/search');
+                const data = await response.json();
+                catImage.src = data[0].url;
+            } catch (error) {
+                console.error('Erro ao buscar imagem:', error);
+            }
+        }
+        fetchCatImage();
+
+        newCatBtn.addEventListener('click', fetchCatImage);
+    </script>
+</body>
+</html>
